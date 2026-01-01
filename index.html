@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filmoria - Ultimate</title>
+    <title>Filmoria - Ultimate V2</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -15,30 +15,30 @@
         <div class="logo">FILMORIA</div>
         <ul class="nav-links">
             <li><a href="#" class="active" onclick="location.reload()">Home</a></li>
-            <li><a href="#" onclick="showSection('popular')">Movies</a></li>
+            <li><a href="#" onclick="scrollToGrid()">Movies</a></li>
             <li><a href="#" onclick="showWishlist()">My List <span id="wishlist-count" class="badge-count">0</span></a>
             </li>
         </ul>
         <div class="user-actions">
             <div class="search-box">
-                <i class="fas fa-search" style="color: #888;"></i>
-                <input type="text" id="search" placeholder="Search movies...">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search" placeholder="Search...">
             </div>
-            <i class="fas fa-user-circle" style="font-size: 28px; cursor: pointer;"></i>
         </div>
     </nav>
 
-    <header class="hero" id="hero">
+    <div class="hero-wrapper" id="hero-wrapper">
+        <div class="hero-bg" id="hero-bg"></div>
+        <div class="hero-overlay"></div>
+
         <div class="hero-content">
-            <div class="badges" id="hero-genres">
-            </div>
+            <div class="badges" id="hero-genres"></div>
             <h1 class="hero-title" id="hero-title">Loading...</h1>
-            <p class="hero-desc" id="hero-desc">Please wait while we fetch the latest movies.</p>
-
-            <div class="stars">
-                <i class="fas fa-star"></i> <span id="hero-rating">0.0</span>/10
+            <div class="hero-meta">
+                <span class="rating-star"><i class="fas fa-star"></i> <span id="hero-rating">0.0</span></span>
+                <span id="hero-year">2024</span>
             </div>
-
+            <p class="hero-desc" id="hero-desc">Please wait...</p>
             <div class="hero-buttons">
                 <button class="btn btn-primary" id="play-btn"><i class="fas fa-play"></i> Watch Trailer</button>
                 <button class="btn btn-secondary" id="hero-wishlist-btn"><i class="far fa-heart"></i> Add to
@@ -46,55 +46,53 @@
             </div>
         </div>
 
-        <div class="hero-progress-container">
-            <div class="hero-progress-bar" id="hero-progress"></div>
+        <div class="hero-slider-container">
+            <div class="hero-slider" id="hero-slider"></div>
         </div>
-
-        <div class="hero-overlay"></div>
-    </header>
+    </div>
 
     <section class="picker-section">
-        <div class="picker-content">
-            <h2>🍿 Random Movie Picker</h2>
-            <p>Qərar verə bilmirsən? Qoy şans sənin yerinə seçsin!</p>
+        <div class="picker-container">
+            <div class="picker-content">
+                <h2>🍿 Random Picker</h2>
+                <p>Qərar verə bilmirsən? Şansı sına!</p>
 
-            <div class="slot-machine-container">
-                <div class="slot-window">
-                    <img id="picker-image" src="https://via.placeholder.com/300x450/000000/FFFFFF/?text=READY"
-                        alt="Random Movie">
-                    <div class="slot-overlay"></div>
-                </div>
-
-                <div class="picker-info">
-                    <h3 id="picker-title">Press Spin</h3>
-                    <div class="picker-controls">
-                        <button id="spin-btn" class="spin-btn">
-                            <i class="fas fa-dice"></i> SPIN NOW
-                        </button>
-                        <button id="picker-watch-btn" class="btn btn-primary hide">
-                            <i class="fas fa-play"></i> Watch
-                        </button>
+                <div class="slot-machine-container">
+                    <div class="slot-window">
+                        <img id="picker-image" src="https://via.placeholder.com/300x450/000000/FFFFFF/?text=READY"
+                            alt="Random Movie">
+                        <div class="slot-overlay"></div>
                     </div>
+                    <div class="picker-info">
+                        <h3 id="picker-title">Press Spin</h3>
+                        <button id="spin-btn" class="spin-btn"><i class="fas fa-dice"></i> SPIN NOW</button>
+                        <button id="picker-watch-btn" class="btn btn-primary hide"
+                            style="width: 100%; margin-top: 10px;">Watch</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="picker-history-panel">
+                <h3>📜 History</h3>
+                <div class="history-list" id="picker-history-list">
+                    <span style="color:gray; font-size:12px;">Hələ seçim edilməyib.</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="section-container">
-        <div class="section-title">
-            <h3>🚀 Coming Soon</h3>
-            <div class="nav-arrows">
-                <i class="fas fa-chevron-left" onclick="scrollSlider(-1)"></i>
-                <i class="fas fa-chevron-right" onclick="scrollSlider(1)"></i>
-            </div>
-        </div>
-        <div class="carousel-container" id="upcoming-slider"></div>
-    </div>
+    <div class="sticky-header" id="grid-start">
+        <div class="header-top">
+            <h3 id="grid-title">🔥 Explore Movies</h3>
 
-    <div class="sticky-header">
-        <div class="section-title">
-            <h3 id="grid-title">🔥 Explore Popular</h3>
+            <select id="sort-select" class="sort-dropdown">
+                <option value="popularity.desc">Most Popular</option>
+                <option value="vote_average.desc">Top Rated (IMDB)</option>
+                <option value="primary_release_date.desc">Newest First</option>
+                <option value="revenue.desc">Box Office</option>
+            </select>
         </div>
+
         <div class="filters" id="genre-filters">
             <button class="filter-btn active" data-id="all">All</button>
             <button class="filter-btn" data-id="28">Action</button>
@@ -103,15 +101,32 @@
             <button class="filter-btn" data-id="35">Comedy</button>
             <button class="filter-btn" data-id="27">Horror</button>
             <button class="filter-btn" data-id="878">Sci-Fi</button>
+            <button class="filter-btn" data-id="10749">Romance</button>
         </div>
     </div>
 
-    <div class="grid-container" id="main-grid">
+    <div class="grid-container" id="main-grid"></div>
+
+    <div class="load-more-container">
+        <button id="load-more-btn" class="btn btn-secondary hide">Load More Movies</button>
     </div>
 
     <div class="loader" id="loader">
         <div class="spinner"></div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">FILMORIA</div>
+            <p>Made for movie lovers. Powered by TMDB API.</p>
+            <div class="socials">
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-github"></i>
+            </div>
+            <p class="copyright">&copy; 2024 Filmoria. All rights reserved.</p>
+        </div>
+    </footer>
 
     <div id="video-modal" class="modal">
         <div class="modal-content">
