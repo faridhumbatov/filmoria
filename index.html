@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmoria - Ultimate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">FILMORIA</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active" onclick="location.reload()">Home</a></li>
+            <li><a href="#" onclick="showSection('popular')">Movies</a></li>
+            <li><a href="#" onclick="showWishlist()">My List <span id="wishlist-count" class="badge-count">0</span></a>
+            </li>
+        </ul>
+        <div class="user-actions">
+            <div class="search-box">
+                <i class="fas fa-search" style="color: #888;"></i>
+                <input type="text" id="search" placeholder="Search movies...">
+            </div>
+            <i class="fas fa-user-circle" style="font-size: 28px; cursor: pointer;"></i>
+        </div>
+    </nav>
+
+    <header class="hero" id="hero">
+        <div class="hero-content">
+            <div class="badges" id="hero-genres">
+            </div>
+            <h1 class="hero-title" id="hero-title">Loading...</h1>
+            <p class="hero-desc" id="hero-desc">Please wait while we fetch the latest movies.</p>
+
+            <div class="stars">
+                <i class="fas fa-star"></i> <span id="hero-rating">0.0</span>/10
+            </div>
+
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="play-btn"><i class="fas fa-play"></i> Watch Trailer</button>
+                <button class="btn btn-secondary" id="hero-wishlist-btn"><i class="far fa-heart"></i> Add to
+                    List</button>
+            </div>
+        </div>
+
+        <div class="hero-progress-container">
+            <div class="hero-progress-bar" id="hero-progress"></div>
+        </div>
+
+        <div class="hero-overlay"></div>
+    </header>
+
+    <section class="picker-section">
+        <div class="picker-content">
+            <h2>🍿 Random Movie Picker</h2>
+            <p>Qərar verə bilmirsən? Qoy şans sənin yerinə seçsin!</p>
+
+            <div class="slot-machine-container">
+                <div class="slot-window">
+                    <img id="picker-image" src="https://via.placeholder.com/300x450/000000/FFFFFF/?text=READY"
+                        alt="Random Movie">
+                    <div class="slot-overlay"></div>
+                </div>
+
+                <div class="picker-info">
+                    <h3 id="picker-title">Press Spin</h3>
+                    <div class="picker-controls">
+                        <button id="spin-btn" class="spin-btn">
+                            <i class="fas fa-dice"></i> SPIN NOW
+                        </button>
+                        <button id="picker-watch-btn" class="btn btn-primary hide">
+                            <i class="fas fa-play"></i> Watch
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-container">
+        <div class="section-title">
+            <h3>🚀 Coming Soon</h3>
+            <div class="nav-arrows">
+                <i class="fas fa-chevron-left" onclick="scrollSlider(-1)"></i>
+                <i class="fas fa-chevron-right" onclick="scrollSlider(1)"></i>
+            </div>
+        </div>
+        <div class="carousel-container" id="upcoming-slider"></div>
+    </div>
+
+    <div class="sticky-header">
+        <div class="section-title">
+            <h3 id="grid-title">🔥 Explore Popular</h3>
+        </div>
+        <div class="filters" id="genre-filters">
+            <button class="filter-btn active" data-id="all">All</button>
+            <button class="filter-btn" data-id="28">Action</button>
+            <button class="filter-btn" data-id="12">Adventure</button>
+            <button class="filter-btn" data-id="16">Animation</button>
+            <button class="filter-btn" data-id="35">Comedy</button>
+            <button class="filter-btn" data-id="27">Horror</button>
+            <button class="filter-btn" data-id="878">Sci-Fi</button>
+        </div>
+    </div>
+
+    <div class="grid-container" id="main-grid">
+    </div>
+
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="video-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <iframe id="video-frame" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+            <div id="no-video" style="display:none; text-align:center; padding:50px; color:white;">Treyler tapılmadı :(
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
